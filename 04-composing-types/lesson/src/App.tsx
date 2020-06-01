@@ -1,8 +1,49 @@
-import React from 'react'
+import React, { FC } from 'react'
 import logo from './logo.svg'
 import './App.css'
 
-function App() {
+interface Props {
+    firstName: string
+    lastName: string
+}
+
+type EntityType = 'company' | 'person'
+
+enum Role {
+    ADMIN = 'Admin',
+    EMPLOYEE = 'Employee',
+    SUPERADMIN = 'super-admin',
+    GUEST = 'Guest',
+}
+interface Company {
+    legalName: string
+    address: string
+    entityType: 'company'
+}
+
+interface Person {
+    name: string
+    address: string
+    entityType: 'person'
+}
+
+type Entity = Company | Person
+
+const SelectUserRole: FC = () => {
+    const roles = Object.values(Role)
+
+    return (
+        <select placeholder="Select a role for the user">
+            {roles.map((role) => (
+                <option key={role} value={role}>
+                    {role}
+                </option>
+            ))}
+        </select>
+    )
+}
+
+const App: FC = () => {
     return (
         <div className="App">
             <header className="App-header">
@@ -10,14 +51,7 @@ function App() {
                 <p>
                     Edit <code>src/App.tsx</code> and save to reload.
                 </p>
-                <a
-                    className="App-link"
-                    href="https://reactjs.org"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    hi
-                </a>
+                <SelectUserRole />
             </header>
         </div>
     )
